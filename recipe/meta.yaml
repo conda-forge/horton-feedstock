@@ -1,16 +1,16 @@
 {% set name = "horton" %}
-{% set version = "2.3.0" %}
+{% set version = "2.3.2" %}
 
 package:
   name: {{ name | lower }} 
   version: {{ version }}
 
 source:
-  url: https://github.com/theochem/horton/releases/download/{{ version }}/horton-{{ version }}.tar.gz
-  sha256: 5cd76d53368995dd2fba20903a3bddda1161ffa6ffe9f9eef94189ed0a67cc27
+  url: https://github.com/theochem/horton/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 860a2c9418491e0792c6fbd7cef0a0b6620c6bebd6e6b10fa6314d53b2722281
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
   script: {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
 
