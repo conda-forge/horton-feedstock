@@ -1,16 +1,17 @@
 {% set name = "horton" %}
-{% set version = "2.3.0" %}
+{% set version = "2.3.3" %}
 
 package:
   name: {{ name | lower }} 
   version: {{ version }}
 
 source:
-  url: https://github.com/theochem/horton/releases/download/{{ version }}/horton-{{ version }}.tar.gz
-  sha256: 5cd76d53368995dd2fba20903a3bddda1161ffa6ffe9f9eef94189ed0a67cc27
+#  path: ../../horton/
+  url: https://github.com/theochem/horton/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 03be12a52a341409dd19d16425d5510d6ca5128afd29368f25ba9707a2b95a5c
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
   script: {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
 
@@ -29,7 +30,7 @@ requirements:
     - cython
     - h5py
     - libxc
-    - libint <2.8
+    - libint
   run:
     - python
     - numpy
@@ -37,7 +38,7 @@ requirements:
     - h5py
     - matplotlib-base
     - libxc
-    - libint <2.8
+    - libint
     - cython
 test:
   requires:
