@@ -1,5 +1,5 @@
 {% set name = "horton" %}
-{% set version = "2.3.3" %}
+{% set version = "2.3.4" %}
 
 package:
   name: {{ name | lower }} 
@@ -8,7 +8,7 @@ package:
 source:
 #  path: ../../horton/
   url: https://github.com/theochem/horton/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 03be12a52a341409dd19d16425d5510d6ca5128afd29368f25ba9707a2b95a5c
+  sha256: 00399abe671b79b44e348ae628c19c3692ef84ae260d0d39ea8a0fd9cd85bb7b
 
 build:
   number: 2
@@ -42,12 +42,15 @@ requirements:
     - libint
     - cython
 test:
+  source_files:
+    - pytest.ini
   requires:
-    - nose
+    - pytest
+#    - conda-verify
   imports:
     - horton
   commands:
-    - nosetests -v horton
+    - pytest --pyargs horton
   
 about:
   home: https://github.com/theochem/horton
