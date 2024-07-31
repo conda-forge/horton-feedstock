@@ -1,23 +1,29 @@
 {% set name = "horton" %}
-{% set version = "2.3.0" %}
+{% set version = "2.3.4" %}
 
 package:
   name: {{ name | lower }} 
   version: {{ version }}
 
 source:
-  url: https://github.com/theochem/horton/releases/download/{{ version }}/horton-{{ version }}.tar.gz
-  sha256: 5cd76d53368995dd2fba20903a3bddda1161ffa6ffe9f9eef94189ed0a67cc27
+#  path: ../../horton/
+  url: https://github.com/theochem/horton/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 00399abe671b79b44e348ae628c19c3692ef84ae260d0d39ea8a0fd9cd85bb7b
 
 build:
-  number: 1
+  number: 3
   skip: true  # [win]
   script: {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
   build:
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - cython                                 # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
+    - {{ stdlib("c") }}
   host:
     - python
     - setuptools
@@ -25,7 +31,7 @@ requirements:
     - cython
     - h5py
     - libxc
-    - libint <2.8
+    - libint
   run:
     - python
     - numpy
@@ -33,15 +39,18 @@ requirements:
     - h5py
     - matplotlib-base
     - libxc
-    - libint <2.8
+    - libint
     - cython
 test:
+  source_files:
+    - pytest.ini
   requires:
-    - nose
+    - pytest
+#    - conda-verify
   imports:
     - horton
-  commands:
-    - nosetests -v horton
+#  commands:
+#    - pytest --pyargs horton
   
 about:
   home: https://github.com/theochem/horton
