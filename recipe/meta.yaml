@@ -1,17 +1,17 @@
 {% set name = "horton" %}
-{% set version = "2.3.4" %}
+{% set version = "2.3.5" %}
 
 package:
-  name: {{ name | lower }} 
+  name: {{ name | lower }}
   version: {{ version }}
 
 source:
 #  path: ../../horton/
   url: https://github.com/theochem/horton/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 00399abe671b79b44e348ae628c19c3692ef84ae260d0d39ea8a0fd9cd85bb7b
+  sha256: 40f0cc5a61e7a00b396d26be7dc4a69ac872697f6584ae3620e6908d6c070608
 
 build:
-  number: 3
+  number: 0
   skip: true  # [win]
   script: {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
 
@@ -51,7 +51,6 @@ test:
     - horton
 #  commands:
 #    - pytest --pyargs horton
-  
 about:
   home: https://github.com/theochem/horton
   license: GPL-3.0-or-later
@@ -69,4 +68,4 @@ about:
 extra:
   recipe-maintainers:
     - matt-chan
-  
+
